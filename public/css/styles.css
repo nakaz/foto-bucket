@@ -1,0 +1,13 @@
+#fotostream {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.foto {
+  width: 100%;
+}
+
+.foto img {
+  width: 100%;
+  object-fit: cover;
+}
