@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
+const { BUCKET_NAME } = require('./config/config.json');
 const fotoBucket = require('./helpers/aws-foto-bucket.js');
 
 const app = express();
@@ -42,7 +43,7 @@ function loadImages(err, data){
       return new Date(a.LastModified) - new Date(b.LastModified);
     })
     .forEach((image) => {
-    cachedImages.push(s3.getSignedUrl('getObject', {Bucket: 'nakaz-bucket-dakine', Key: image.Key}));
+    cachedImages.push(s3.getSignedUrl('getObject', {Bucket: BUCKET_NAME, Key: image.Key}));
   })
 }
 
@@ -66,7 +67,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
       res.send('Something went wrong');
     }else{
       console.log(data)
-      var url = s3.getSignedUrl('getObject', {Bucket: 'nakaz-bucket-dakine', Key: data.Key});
+      var url = s3.getSignedUrl('getObject', {Bucket: BUCKET_NAME, Key: data.Key});
       console.log('signed url', url)
       newImageUpload(url)
       // res.send(`<html><body><img src=${url}></body></html>`)
