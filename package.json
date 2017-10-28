@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "author": "",
+  "author": "Sean Nakamura <seanenakamura@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.132.0",
