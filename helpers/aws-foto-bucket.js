@@ -1,8 +1,9 @@
 const AWS = require('aws-sdk');
 const fs = require('fs');
-AWS.config.loadFromPath('./config/config.json');
+const { BUCKET_NAME } = require('../config/config.json');
+AWS.config.loadFromPath('config/aws-config.json');
 
-var fotoBucket = new AWS.S3( { params: {Bucket: 'nakaz-bucket-dakine'} } )
+var fotoBucket = new AWS.S3( { params: { Bucket: BUCKET_NAME } } )
 
 function uploadToS3(file, callback) {
   console.log(file)
@@ -16,7 +17,13 @@ function uploadToS3(file, callback) {
     .send(callback);
 }
 
+function getAllImages(cb){
+  fotoBucket
+    .listObjects().send(cb);
+}
+
 module.exports = {
-  upload: uploadToS3
+  upload: uploadToS3,
+  getAll: getAllImages
 }
 
